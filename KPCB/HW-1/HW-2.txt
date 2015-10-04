@@ -1,0 +1,412 @@
+# All scripts are at the bottom
+
+# Problem 1
+# Assumption: character addition/subtraction works as follows A+B=B(0+1=1), B+C=D(1+2=3)
+Key = MALLORY
+The GCD is 7 so I guess the length of keyword is 7 (gcd from python script)
+Most common 3 letter word is ESS in the plaintext. I assume this to be 'the' (as in english) (ESS translates to THE)
+I did ESS - THE = LLO 
+Backtracking, I found key to be _ _ L L O _ _
+
+IZYG appears 4 times. ZYG is encrypted with LLO (ZYG-ESS)
+Most common 4 letter sequence is ions -> IONS + ENCODING = IZYG therefor I decrypts to I
+the key now is _ A L L O _ _
+Also, I assume YG is is code for AT, YG-AT = YM
+so key now is 
+M A L L O _ Y
+
+so, I guess they key is MALLORY and decrypting using this gives plaintext which makes sense.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+# Problem 2
+part_a_var_english= 0.00104056677352
+
+part_b_var_plaintext= 0.00100697379544
+
+part_c_var_ciphertexts=[0.00054255725959,  0.000347415100162,  0.000245919373667, 0.000181489755666, 0.000167971527862]
+part_c_explain=As the length of the key gets larger and larger, the population variance decreases, as the key gets larger
+				the letters which follow a given shift goes down. As key length goes up, the number of unique shifts goes up.
+
+part_d_means=[ 0.000996095221581, 0.000932767394623, 0.00103716080576, 0.000949962559747,  0.00105968172431]
+part_d_explain= The mean variances are like those observed in part b and larger than c. 
+				There is no evident relation between key length and mean variance, as each of the caesar ciphers 
+				roughly maintain similar frequencies as the plaintext,  with different more similar alphabets. When a mean is taken 
+				of each of these variances, it equals roughly the same as the mean of the plaintext
+
+part_e_means=[0.000413056, 0.000508217, 0.000484738, 0.000331498]
+part_e_explain=I dont think there is a relation between the values in part e.This can be used as a variant to the Kasiski 
+				attack to figure out key length as the variances in part e are much lower than the actual variance that we 
+				calculated in part d, so we can use this method to figure out the key length
+
+show_your_work_here ...
+
+I have pasted the python/c++ scripts I used to do this at the bottom (after Problem 3)
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+#Problem 3
+ “snakeoil cryptography” is  any commercial cryptographic method or product considered to be bogus or fraudulent.It is a term used 
+for bad cryptography tools is "snake oil" 
+It relates to them as these encryption methods seem secure but are not. They are examples of bad cryptography.
+The Vigenere cipher, that was once considered unbreakable, or extremely difficult to break, is an example of snakeoil cryptography 
+as we have shown in the questions above. We determine the message key and decode the message. 
+
+-----------------------------------------------------------------------------------------------------------------------------------
+ 
+
+
+
+------------------------------CODE IS HERE----------------------------
+
+ CODE:
+
+#Problem 1
+text="FHPOSGYDTXPBKMRJFDHZAQHLDPVCZAYOKZJXAWHOPQNENZADGFTPOHFNDOEPQKGZGESSCGNECEMRLPSPNIIGFYZQHYMEEHSCDUQSPCJVGZRPNSERYOYEVJFAWPGSIUQHLGSFLMNPHGTYXEDPSEKMIYDHICMMACCUSOTDLBUQQRGTQVQPEDTUECPIYLKRWFHLEUZTQSFDSIQEOWPQFLFRZWCMCDANNSJQFOESSZPPAELOJYDEDFZKJMWPYTFPOEXPBKGESZXSKGYEDFBRZXEEZFVAZRPDDFLEEEZOTMGREZFUCDOCOICWMUESCIGLEOHOIPMNETGJSQDMJOWCPECLZASPGPQCICJAXAZVKMNJNCDKGNTNOKGANDDSITUCPDBFUQNNCMGROECEOZLOOXXIEGOAETCEQNYOPTRSXTHTHYRTEVPMECOEDDOIWFOOPQIWBTESSTMYMFYWTYFIZYGJMXEWJWERTESLBUQAFESSVLPUDPFKFUSLADCGQSMZHYUTEYEVVBMTLTGZLYOETCEMHECPZVAFRZYWTLQTHZFBQARLEFVQFOYLBVJQCECCEGODPGWTCUFESSTMYMFYWTYFIZYGGPAVTOSIGESPCJVBIIESONYDRLYHJCQKTYUKFASPNCDKGNTNOKGANDEVVNDOGTRVPOAYYCKNDOGTRVRTEOLHRZQCLFGVGFHLDRVQUGYPRKFQTPNVEMXORJGLATTSLHZROAYYCKZQANNSJQQDMJOEWFHTCRGYDTJHSUMZOESOMCMNJDWCTQRMFZCCFSLYRKFQDTDQLQEIZYGNGFHTYHYCQXPNIKGHEMCOEATACPGKGXLZYUFGZGHSWCCFHPCSYYENZEMVRNEPYOUCOIDTCEUTEESSIRASPPYCCSIDWOKGANHPALQFWZCYNGFHNZBXPQSDTBUSETCJOTYPEXTQJNDIGLQPEDOFAGRLPOESSIQFONCOWRMNLADIMMCSEVRRMDOCSJQQSLWZFDFHPXICRUPWPQFKBEETBXAANNPFEQFHLEVRTQBPPBKFQFZNIJMRSZXITFPEMLHVZGTHPQRLMLWLUICQTSLHNCIIWWBVCPOYRCZLSHZYSJRMNOTBWMDMPODLZXINOSSYFELMCLRTOHMSJRFOACCKCOTWTPVPFYLYRJCOUCTHPGZBZEVFSDLLHGRLPOFCHVATNZWCXW"
+#print text
+#pick 5 
+array=[]
+for x in range(0,(len(text)-6)):
+    for y in range(x+5,len(text)-5):
+        if text[x:x+5] == text[y:y+5]:
+            print "Match"
+            print text[x:x+5]
+            print text[y:y+5]
+            print "difference", y-x
+            array.append(y-x)
+
+print array
+# by observation the gcd is 7 therefore key length is 7
+---------------------------------------------------------------
+#Problem 2
+# Code is split into python and c++
+#declare constants
+# doing python for the first time please forgive bad code :)
+array = []
+
+array.append(0.08167)
+array.append(0.01492)
+array.append(0.02782)
+array.append(0.04253)
+array.append(0.12702)
+array.append(0.02228)
+array.append(0.02015)
+array.append(0.06094)
+array.append(0.06996)
+array.append(0.00153)
+array.append(0.00772)
+array.append(0.04025)
+array.append(0.02406)
+array.append(0.06749)
+array.append(0.07507)
+array.append(0.01929)
+array.append(0.00095)
+array.append(0.05987)
+array.append(0.06327)
+array.append(0.09056)
+array.append(0.02758)
+array.append(0.00978)
+array.append(0.02360)
+array.append(0.00150)
+array.append(0.01974)
+array.append(0.00074)
+a=0
+for i in range (0,26):
+	a=a+array[i]	
+
+a=a/26	
+print a # this is the mean
+
+pop_var=0
+for i in range (0,26): #for all chars
+	pop_var = pop_var + ((array[i] - a)*(array[i] - a))
+
+pop_var=pop_var/26
+print "pop_var_a" , pop_var # this is the population variance 
+
+
+char_map={}
+plaintext = "ethicslawanduniversitypolicieswarningtodefendasystemyouneedtobeabletothinklikeanattackerandthatincludesunderstandingtechniquesthatcanbeusedtocompromisesecurityhoweverusingthosetechniquesintherealworldmayviolatethelawortheuniversitysrulesanditmaybeunethicalundersomecircumstancesevenprobingforweaknessesmayresultinseverepenaltiesuptoandincludingexpulsioncivilfinesandjailtimeourpolicyineecsisthatyoumustrespecttheprivacyandpropertyrightsofothersatalltimesorelseyouwillfailthecourseactinglawfullyandethicallyisyourresponsibilitycarefullyreadthecomputerfraudandabuseactcfaaafederalstatutethatbroadlycriminalizescomputerintrusionthisisoneofseverallawsthatgovernhackingunderstandwhatthelawprohibitsifindoubtwecanreferyoutoanattorneypleasereviewitsspoliciesonresponsibleuseoftechnologyresourcesandcaenspolicydocumentsforguidelinesconcerningproper"
+#plaintext="csfharjzuzlcsmgucqqhrxnnjhahcruzpmgmesmccecmbzqxqsclwnsmcdbsmaczzkcsmsfhljjhidymysrzajcqymbsfzrhlbjtbdqtlccqqsymbhlfrdaglhotcrrgysazlactqdbsmbmlnqmlgrcrcbsqgswgmvcucqsrgmesfnqdrdaglhotcrgmrgcqczjvmqjckzwugnjzrdrgckyvmqrgctlhtdprgswrptjdqzlcgskzwactldrggbyksmbdprmlcbgqatkrrzlbcrcucmnqmagmeemqudyjldqrcrkzwqcrskrhlrcucqcocmykrhcrsornymbhlbjtbhlfcwntjrgnlbgugkdhldqzlchzgkrhkdmtpomkgbwhldcbqhqsfzrxmtktqspdqocbrsfdnqguybwzlcnqmocqrxphegrrmemsfdprysykjsglcrmqckqdwnsvgkjeyhjsfdansqqdybrhlfjzueskjxymbdrggbykjxgrwnsqpdqommqhzhjhrxazpddtjkwqczbsfdankosscqdqytbzlcyasrczasaeyzyecccqykqsyssscsfzrapnycjxaqglgmykgycrankosscqgmrqsrgnlsfhqhqnldmeqdtdpzjkyvqsfzrfmucqlgybihlfsmbdprrzlcugysrgckyvnqmggagsqhdhlcmtzsudazlqcecqwnssmzlzrsmqldwojdyrcqcugduhrrqomkgbgdqnlqcrnnlrgajdsrcndscbfmmkmfwqcrmtpbcrymbbydlrnnjhaxbnatkdlsqemqetgcckgmcranlbcqlhlfnqmocq"
+for i in range(0,len(plaintext)):
+	a = plaintext[i]
+	char_map[a]=0
+counter=0
+for i in range(0,len(plaintext)):
+	a = plaintext[i]
+	o= char_map[a]
+	o=o+1
+	char_map[a]=o
+	counter = counter+1
+
+#print "total count ", counter
+#print char_map
+#print "counter ", counter
+new_perc = []
+
+for key in char_map:
+	#print char_map[key]
+	a = char_map[key]
+	a=float(a)
+	a=a/840
+	new_perc.append(a)
+
+mean=0
+for i in range(0,26):
+	mean+=new_perc[i]
+mean=mean/26
+
+
+new_pop_var =0 
+for i in range (0,26): #for all chars
+	new_pop_var = new_pop_var + ((new_perc[i] - mean)*(new_perc[i] - mean))
+
+new_pop_var=new_pop_var/26
+print "NEW POP VAR:",new_pop_var # this is the population variance  #WORKS :)
+
+---- For C,D,E
+
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+#include <iomanip>      // std::setprecision
+
+using namespace std;
+//global plaintext
+string plaintext = "ethicslawanduniversitypolicieswarningtodefendasystemyouneedtobeabletothinklikeanattackerandthatincludesunderstandingtechniquesthatcanbeusedtocompromisesecurityhoweverusingthosetechniquesintherealworldmayviolatethelawortheuniversitysrulesanditmaybeunethicalundersomecircumstancesevenprobingforweaknessesmayresultinseverepenaltiesuptoandincludingexpulsioncivilfinesandjailtimeourpolicyineecsisthatyoumustrespecttheprivacyandpropertyrightsofothersatalltimesorelseyouwillfailthecourseactinglawfullyandethicallyisyourresponsibilitycarefullyreadthecomputerfraudandabuseactcfaaafederalstatutethatbroadlycriminalizescomputerintrusionthisisoneofseverallawsthatgovernhackingunderstandwhatthelawprohibitsifindoubtwecanreferyoutoanattorneypleasereviewitsspoliciesonresponsibleuseoftechnologyresourcesandcaenspolicydocumentsforguidelinesconcerningproper";
+vector<string> vec;
+void cipher(string key);
+void calcvar();
+void varfromvec();
+void var_part_e();
+string key;
+bool part_e=false;
+map<char,double> char_count;
+int main(int argc,  char** argv)
+
+{
+	cout<<"Enter Key:";
+	cin >>key;
+	
+	if(argv[1])
+	{
+		cout<<"here\n";
+		part_e=true;
+		key="uvwxyz";
+		cipher(key);
+		var_part_e();
+		exit(1);
+	}
+	else
+	{
+		cipher(key);
+	}
+	calcvar();
+	varfromvec();
+	
+}
+
+//finds cipher here
+void cipher(string key)
+{
+	for(unsigned i=0;i<plaintext.length();i++)
+	{	//go over the entire string
+		int to_add=i%key.length();
+		plaintext[i]-=97;
+		plaintext[i]+=(key[to_add]-97);
+		plaintext[i]=plaintext[i]%26;
+		plaintext[i]+=97;
+	}
+}
+
+
+void calcvar()
+{
+	map<char,double> char_count;
+	for(unsigned i=0;i<plaintext.length();i++)	//set to 0
+	{
+		char_count[plaintext[i]]=0;
+	}
+	for(unsigned i=0;i<plaintext.length();i++)	//increment counter
+	{
+		char_count[plaintext[i]]+=1;
+	}
+	double totalchars=plaintext.length();	//total length
+	
+	map<char, double>::iterator iter;	//iterator
+	for (iter = char_count.begin(); iter != char_count.end(); ++iter)
+	{
+		iter->second/=totalchars;	//finding the percentage
+	}
+	//calculate mean
+	double mean=0;
+	for (iter = char_count.begin(); iter != char_count.end(); ++iter)
+	{
+		mean+=iter->second;
+	}
+	mean/=26;
+
+	//reset iter
+	iter=char_count.begin();
+	//set pop_var =0
+	double pop_var=0;
+	for (iter = char_count.begin(); iter != char_count.end(); ++iter)
+	{
+		pop_var+=(iter->second-mean)*(iter->second-mean);
+	}
+
+	pop_var/=26; //num chars
+
+	cout<<"POP VAR IN CYPHERED IS: "<<setprecision(12)<<pop_var<<endl;
+
+//part d -> 2 cyphers variance then mean , then 3 y-> in 1 string z-> in 1 string y variance and z variance
+	if(key.length()==2)
+	{
+		vec.resize(2);
+
+	for(unsigned i=0; i<plaintext.length();i++)
+		{
+			vec[i%(key.length())]+=plaintext[i];
+		}
+	}
+	if(key.length()==3)
+	{
+		vec.resize(3);
+		for(unsigned i=0; i<plaintext.length();i++)
+		{
+			vec[i%(key.length())]+=plaintext[i];
+		}
+
+	}
+	if(key.length()==4)
+	{
+		vec.resize(4);
+		for(unsigned i=0; i<plaintext.length();i++)
+		{
+			vec[i%(key.length())]+=plaintext[i];
+		}
+
+	}
+	if(key.length()==5)
+	{
+		vec.resize(5);
+		for(unsigned i=0; i<plaintext.length();i++)
+		{
+			vec[i%(key.length())]+=plaintext[i];
+		}
+
+	}
+	if(key.length()==6)
+	{
+		vec.resize(6);
+		for(unsigned i=0; i<plaintext.length();i++)
+		{
+			vec[i%(key.length())]+=plaintext[i];
+		}
+
+	}
+	
+
+}
+void varfromvec()
+{
+	vector<double> final;
+	for(int i=0;i<vec.size();i++)
+	{
+		map<char,double> c_counter;
+		string str=vec[i];
+		for(unsigned j=0;j<str.size();j++)
+		{
+			char the= str[j];
+			c_counter[the]+=1;	//map set 
+		}
+		//now calc variance here
+		map<char, double>::iterator iter;
+		for (iter = c_counter.begin(); iter != c_counter.end(); ++iter)
+		{
+			iter->second/=vec[i].size();	//finding the percentage
+		}
+		double mean=0;
+		for (iter = c_counter.begin(); iter != c_counter.end(); ++iter)
+		{
+			mean+=iter->second;
+		}
+		mean/=26;
+		//mean here
+		double pop_var=0;
+		for (iter = c_counter.begin(); iter != c_counter.end(); ++iter)
+		{
+			pop_var+=(iter->second-mean)*(iter->second-mean);
+		}
+		pop_var/=26; //num chars
+		final.push_back(pop_var);
+	}
+	double d_ans;
+	for(int i=0;i<final.size();i++)
+	{
+		d_ans+=final[i];
+	}
+	d_ans/=final.size();
+	cout<<"mean var "<<setprecision(12)<<d_ans<<endl;
+}
+void var_part_e()
+{
+	for(int i=2;i<6;i++)	//diff key lengths
+	{
+		vector<double> final;
+
+		vector<string> for_e;
+		for_e.resize(i);
+		
+		for(unsigned j=0; j<plaintext.length();j++)
+		{
+			for_e[j%i]+=plaintext[j];	//writing to vector
+		}
+		
+		for(int a=0;a<for_e.size();a++)	//for 1 string in vector
+		{
+			map<char,double> c_counter;
+			string str=for_e[a];
+			for(unsigned b=0;b<str.size();b++)
+			{
+				char the= str[b];
+				c_counter[the]+=1;	//map set 
+			}
+		//now calc variance here
+			//cout<<for_e[a].size()<<endl;
+			map<char, double>::iterator iter;
+			for (iter = c_counter.begin(); iter != c_counter.end(); ++iter)
+			{
+				iter->second/=for_e[a].size();	//finding the percentage
+			}
+			double mean=0;
+			for (iter = c_counter.begin(); iter != c_counter.end(); ++iter)
+			{
+				mean+=iter->second;
+			}
+			mean/=26;
+			//mean here
+			double pop_var=0;
+			for (iter = c_counter.begin(); iter != c_counter.end(); ++iter)
+			{
+				pop_var+=(iter->second-mean)*(iter->second-mean);
+			}
+			pop_var/=26; //num chars
+			final.push_back(pop_var);
+		}
+		double d_ans=0;
+		for(int cd=0;cd<final.size();cd++)
+		{
+			d_ans+=final[cd];
+		}
+		d_ans/=final.size();
+		cout<<" length in this case is "<<i<<" "<<d_ans<<endl;
+
+	}
+}
+
+
+
+
+
