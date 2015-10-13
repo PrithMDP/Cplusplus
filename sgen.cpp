@@ -22,6 +22,7 @@ int main()
              if(test == first)
              {
                  cout<<"match"<<endl;
+                 i=j=k=8; //exit the loop
              }
           }
       }      
