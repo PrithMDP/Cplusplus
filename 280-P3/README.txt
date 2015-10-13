@@ -41,8 +41,8 @@ An agent is satisfied if certain percentage of its neighbors are alike. The neig
 For simplicity, we’ll start with agents being satisfied if they are in the majority among their neighbors. Later, we’ll make this configurable (e.g., 1⁄3 of neighbors are alike, etc.) For example, in the following grid, the agent u​nderlined​(upper left 'X') is satisfied because it is in the majority in its neighborhood (shaded). Since this agent is near the corner and some of the neighbors are unoccupied, it has only 1 neighbors (first 'X' in second row), with a total neighborhood size of 2.
 
 
-  X​​ ​  X 
-    X​ O X 
+  X      X 
+    X  O X 
 X O X X O
 
 X O
@@ -52,8 +52,8 @@ On the other hand, in the following grid (lower left), the agent u​nderlined�
 ￼
 Before move 
 
-  X​​ ​  X 
-    X​ O X 
+  X      X 
+    X  O X 
 X O X X O
 
 X O
@@ -62,8 +62,8 @@ agent located at (2,3) moves to a randomly selected empty location (All indices 
 
 After move 
 
-  X​​ ​  X 
-    X​ O X 
+  X      X 
+    X  O X 
 X   X X O
 
 X O O
@@ -71,11 +71,11 @@ X O O
 
 The simulation ends when all agents are satisfied, for example:
 
-  X​​ ​  X 
-    X​   X 
+  X      X 
+    X    X 
 X   X X  
-		O
-X O O O
+	 O
+X  O  O  O
 
 -------------------------------------------------------------------------
 
