@@ -1,0 +1,4 @@
+size: 21
+satisfaction_ratio: 0.5
+percent_X: 0.4
+percent_0: 0.4
