@@ -27,7 +27,11 @@ int main(int argc, char** argv)
              if(test == first)
              {
                  cout<<"match"<<endl;
+<<<<<<< HEAD
 		 i=j=k=8;
+=======
+                 i=j=k=8; //exit the loop
+>>>>>>> e651d3e425650a0f187bb19520845fb2c575f6e0
              }
           }
       }      
