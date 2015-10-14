@@ -90,4 +90,5 @@ and run with either
 or
 ./executable test.txt
 
+You can change the size of the environment, % of each type of agent and satisfaction ratio in the test.txt file
 -------------------------------------------------------------------------
