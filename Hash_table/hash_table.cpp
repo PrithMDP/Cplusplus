@@ -1,6 +1,7 @@
 #include <iostream>
 #include <climits>
 #include <string>
+#include <assert.h>
 using namespace std;
 
 
@@ -179,9 +180,16 @@ public:
     };
 };//End of class declaration
 
+
+void genrandomstring(string &a);
+
 int main ()
 {
-    table<int> t1(1000);
+    table<int> t1(100000);
+    string str;
+    str.resize (12);    //resizing to make it 12 chars long
+
+    /*
     int e=23;
     int *r=&e;
     int yy=55;
@@ -191,6 +199,31 @@ int main ()
     
     cout<<t1.set("this",u)<<endl;
     cout<<*(t1.get("this"))<<endl;
+    */
+
+    for( int i=0;i<100;i++) //100 test simulations
+    {
+        genrandomstring(str); //generating the random string 
+
+        int num=rand()%10000;
+        int *ref=&num;
+
+        t1.set(str,ref);
+
+    }
+
     
     return  0;	
+}
+
+void genrandomstring(string &a)
+{
+    static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+
+    for (int i = 0; i < a.length(); ++i) {
+        a[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
 }
