@@ -12,13 +12,21 @@ int main(int argc, char * argv[])
 	vector<int> a;
 	for(int i = 0 ; i<100; i++)
 	{
-		a.push_back(rand()%100);
+		int f = rand()%1000;
+		cout << f << endl;
+		a.push_back(f);
 	}
+	// cout << endl;
+	// for(int i = 0 ; i<100; i++)
+	// {
+	// 	cout << a[i] << " ";
+	// }
+		
+	// cout << endl;
 	bucket_sort(a);
-
-	for(auto x : a)
+	for(int i = 0 ; i<100; i++)
 	{
-		cout << x <<" ";
+		cout << a[i] << " ";
 	}
 
   return 0;
@@ -51,6 +59,7 @@ void bucket_sort(vector<T> & vec)
 	//calcualte range
 	T range = max-min;
 
+
 	//make no of buckets = sqrt(range)
 	int num_buckets  = ceil(sqrt(abs(max-min)));
 
@@ -61,7 +70,7 @@ void bucket_sort(vector<T> & vec)
 	//run through unsorted and insert
 	for(int i = 0; i < vec.size(); ++i)
 	{
-		buckets[abs(vec[i]-min)/sqrt(range)].push_back(i); 	//place element at |element-min|/sqrt(range)
+		buckets[abs(vec[i]-min)/sqrt(range)].push_back(vec[i]); 	//place element at |element-min|/sqrt(range)
 	}
 
 
@@ -84,5 +93,4 @@ void bucket_sort(vector<T> & vec)
 			++j;
 		}
 	}
-
 }
